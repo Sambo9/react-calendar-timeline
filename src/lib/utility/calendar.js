@@ -325,7 +325,7 @@ export function groupStack(
         if (
           other.dimensions.top !== null &&
           other.dimensions.stack &&
-          collision(item.dimensions, other.dimensions, lineHeight)
+          (item.dimensions.top === other.dimensions.top)
         ) {
           collidingItem = other
           break

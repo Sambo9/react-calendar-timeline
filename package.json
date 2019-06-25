@@ -1,6 +1,6 @@
 {
-  "name": "react-calendar-timeline",
-  "version": "0.25.4",
+  "name": "react-calendar-timeline-custom",
+  "version": "0.25.6",
   "description": "react calendar timeline",
   "main": "lib/index.js",
   "scripts": {
@@ -18,12 +18,12 @@
     "lib",
     "src"
   ],
-  "homepage": "https://github.com/namespace-ee/react-calendar-timeline",
+  "homepage": "https://github.com/Sambo9/react-calendar-timeline",
   "repository": {
     "type": "git",
-    "url": "https://github.com/namespace-ee/react-calendar-timeline.git"
+    "url": "https://github.com/Sambo9/react-calendar-timeline.git"
   },
-  "author": "Marius Andra <marius.andra@gmail.com>",
+  "author": "Sambo <losangeles9@gmail.com>",
   "contributors": [
     {
       "name": "Stanisław Chmiela",
