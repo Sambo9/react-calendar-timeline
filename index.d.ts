@@ -1,3 +1,5 @@
+/// <reference types="react"/>
+
 declare module "react-calendar-timeline-custom" {
  
   export interface TimelineGroup {
