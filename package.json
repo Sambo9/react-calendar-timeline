@@ -1,9 +1,9 @@
 {
   "name": "react-calendar-timeline-custom",
-  "version": "0.25.9",
+  "version": "0.25.999",
   "description": "react calendar timeline",
   "main": "lib/index.js",
-  "types": "./index.d.ts",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "npm run build:lib && npm run copy",
     "build:demo": "echo '!!! Building Demo' && cross-env NODE_ENV=production webpack --progress",
@@ -17,7 +17,6 @@
     "copy": "cp index.d.ts lib/"
   },
   "files": [
-    "./index.d.ts",
     "lib",
     "src"
   ],
