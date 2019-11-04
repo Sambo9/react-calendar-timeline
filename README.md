@@ -115,15 +115,15 @@ Expects either a vanilla JS array or an immutableJS array, consisting of objects
   canMove: true,
   canResize: false,
   canChangeGroup: false,
-  className: 'weekend',
-  style: {
-    backgroundColor: 'fuchsia'
-  },
   itemProps: {
     // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
     'data-custom-attribute': 'Random content',
     'aria-hidden': true,
-    onDoubleClick: () => { console.log('You clicked double!') }
+    onDoubleClick: () => { console.log('You clicked double!') },
+    className: 'weekend',
+    style: {
+      background: 'fuchsia'
+    }
   }
 }
 ```
@@ -142,7 +142,7 @@ The exact viewport of the calendar. When these are specified, scrolling in the c
 
 ## selected
 
-An array with id's corresponding to id's in items (`item.id`). If this prop is set you have to manage the selected items yourself within the `onItemSelect` handler to update the property with new id's. This overwrites the default behaviour of selecting one item on click.
+An array with id's corresponding to id's in items (`item.id`). If this prop is set you have to manage the selected items yourself within the `onItemSelect` handler to update the property with new id's and use `onItemDeselect` handler to clear selection. This overwrites the default behaviour of selecting one item on click.
 
 ## keys
 
@@ -153,7 +153,6 @@ An array specifying keys in the `items` and `groups` objects. Defaults to
   groupIdKey: 'id',
   groupTitleKey: 'title',
   groupRightTitleKey: 'rightTitle',
-  groupLabelKey: 'title', // key for what to show in `InfoLabel`
   itemIdKey: 'id',
   itemTitleKey: 'title',    // key for item div content
   itemDivTitleKey: 'title', // key for item div title (<div title="text"/>)
@@ -225,7 +224,7 @@ Append a special `.rct-drag-right` handle to the elements and only resize if dra
 
 ### stackItems
 
-Stack items under each other, so there is no visual overlap when times collide.  Can be overridden in the `groups` array. Defaults to `false`.
+Stack items under each other, so there is no visual overlap when times collide.  Can be overridden in the `groups` array. Defaults to `false`. Requires millisecond or `Moment` timestamps, not native JavaScript `Date` objects.
 
 ## traditionalZoom
 
@@ -256,6 +255,19 @@ Default:
 
 Ref callback that gets a DOM reference to the scroll body element. Can be useful to programmatically scroll.
 
+## onItemDrag(itemDragObject)
+
+Called when an item is moving or resizing. Returns an object with the following properties:
+
+| property           | type     | description                                                            |
+| ------------------ | -------- | ---------------------------------------------------------------------- |
+| `eventType`        | `string` | retuns either `move` or `resize`                                       |
+| `itemId`           | `number` | ID of the item being moved or resized                                  |
+| `time`             | `number` | UNIX timestamp in milliseconds                                         |
+| `edge`             | `string` | on `resize`, returns a value of either `left` or `right`               |
+| `newGroupOrder`    | `number` | on `move`, index position of the new group that the item is moving to  |
+
+
 ## onItemMove(itemId, dragTime, newGroupOrder)
 
 Callback when an item is moved. Returns 1) the item's ID, 2) the new start time and 3) the index of the new group in the `groups` array.
@@ -267,6 +279,10 @@ Callback when an item is resized. Returns 1) the item's ID, 2) the new start or 
 ## onItemSelect(itemId, e, time)
 
 Called when an item is selected. This is sent on the first click on an item. `time` is the time that corresponds to where you click/select on the item in the timeline.
+
+## onItemDeselect(e)
+
+Called when deselecting an item. Used to clear controlled selected prop.
 
 ## onItemClick(itemId, e, time)
 
@@ -367,8 +383,8 @@ Parameters provided to the function has two types: context params which have the
 | property           | type     | description                                          |
 | ------------------ | -------- | ---------------------------------------------------- |
 | `timelineWidth`    | `number` | returns the full width of the timeline.              |
-| `visibleTimeStart` | `number` | returns the exact start of view port of the calender |
-| `visibleTimeEnd`   | `number` | returns the exact end of view port of the calender.  |
+| `visibleTimeStart` | `number` | returns the exact start of view port of the calendar |
+| `visibleTimeEnd`   | `number` | returns the exact end of view port of the calendar.  |
 | `canvasTimeStart`  | `number` | denotes the start time in ms of the canvas timeline  |
 | `canvasTimeEnd`    | `number` | denotes the end time in ms of the canvas timeline    |
 
@@ -419,7 +435,7 @@ Rather than applying props on the element yourself and to avoid your props being
 
   \*\* _the given styles will only override the styles that are not a requirement for positioning the item. Other styles like `color`, `radius` and others_
 
-  These properties can be override using the prop argument with properties:
+  These properties can be overriden using the prop argument with properties:
 
   * className: class names to be added
   * onMouseDown: event handler will be called after the component's event handler
