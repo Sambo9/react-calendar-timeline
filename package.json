@@ -1,6 +1,6 @@
 {
   "name": "react-calendar-timeline-custom",
-  "version": "0.26",
+  "version": "0.29.99",
   "description": "react calendar timeline",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
